@@ -481,7 +481,6 @@ public class Cribbage extends JFrame {
 		}
 		
 		if (gameState == GameStates.CARDS_DEALT){
-			player1Hand.sort(comparator);
 			if (userAction == UserActions.OK_CLICKED) {
 				cutCard = this.deck.drawCard();
 				cutCard.setLocation(this.deck.getX() - 16, this.deck.getY() - 16);
@@ -637,13 +636,16 @@ public class Cribbage extends JFrame {
 		this.player1CardPlay.setVisible(peggingRound);
 		this.player2CardPlay.setVisible(peggingRound);
 
-		//card groups		
+		//dragging and dropping		
 		this.player1Hand.setCanDrop(gameState == GameStates.CARDS_DEALT && (player1Hand.getComponentCount() < 4));
 		this.crib.setCanDrop(gameState == GameStates.CARDS_DEALT && (crib.getComponentCount() < 4));
 		this.player2Hand.setCanDrop(false);
 		this.player1CardPlay.setCanDrop(gameState == GameStates.PLAYER1_PRE_PEG && (player1CardPlay.getComponentCount() < 1));
 		this.player2CardPlay.setCanDrop(false);
 		this.cardTable.setCanDrop(gameState == GameStates.CARDS_DEALT);
+
+		//ordering
+		player1Hand.sort(comparator);
 
 		//buttons
 		this.btnOk.setEnabled(gameState == GameStates.INTRODUCTION
